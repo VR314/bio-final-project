@@ -2,7 +2,7 @@ import React from 'react';
 import Sketch from 'react-p5';
 import p5Types from 'p5';
 
-const canvasSize = 700;
+const canvasSize = 400;
 
 interface Vector {
   x: number;
@@ -22,7 +22,7 @@ class Blob {
     this.active = true;
     this.main = main;
     this.position = position;
-    this.direction = null;
+    this.direction = { x: 0, y: 0 };
     this.speed = 10;
     this.radius = radius;
     this.color = color
@@ -56,13 +56,18 @@ const TestSketch: React.FC = (props) => {
   };
 
   const draw = (p5: p5Types) => {
+    main.position = {
+      x: main.position.x + (main.direction.x * main.speed) / 60,
+      y: main.position.y - (main.direction.y * main.speed) / 60,
+    }; // subtract in y direction bc up is "negative y"
+
     p5.background(0);
     p5.stroke('#00');
     p5.strokeWeight(4);
     p5.fill(main.color);
     p5.ellipse(main.position.x, main.position.y, main.radius, main.radius);
-
     p5.strokeWeight(0.5);
+    smalls = smalls.filter((b) => b.active);
     for (let b of smalls) {
       p5.fill(b.color);
       p5.ellipse(b.position.x, b.position.y, b.radius, b.radius);
