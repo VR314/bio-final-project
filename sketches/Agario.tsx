@@ -56,8 +56,16 @@ const TestSketch: React.FC = (props) => {
   };
 
   const draw = (p5: p5Types) => {
+    p5.background(0);
+    p5.strokeWeight(0.5);
+    smalls = smalls.filter((b) => b.active);
+    for (let b of smalls) {
+      p5.fill(b.color);
+      p5.ellipse(b.position.x, b.position.y, b.radius, b.radius);
+    }
+
     let x = main.position.x + (main.direction.x * main.speed) / 60;
-    let y = main.position.y - (main.direction.y * main.speed) / 60;
+    let y = main.position.y - (main.direction.y * main.speed) / 60; // subtract in y direction bc up is "negative y"
     x = Math.min(x, canvasSize);
     x = Math.max(x, 0);
     y = Math.min(y, canvasSize);
@@ -65,19 +73,12 @@ const TestSketch: React.FC = (props) => {
     main.position = {
       x,
       y,
-    }; // subtract in y direction bc up is "negative y"
+    };
 
-    p5.background(0);
     p5.stroke('#00');
     p5.strokeWeight(4);
     p5.fill(main.color);
     p5.ellipse(main.position.x, main.position.y, main.radius, main.radius);
-    p5.strokeWeight(0.5);
-    smalls = smalls.filter((b) => b.active);
-    for (let b of smalls) {
-      p5.fill(b.color);
-      p5.ellipse(b.position.x, b.position.y, b.radius, b.radius);
-    }
   };
 
   const keyReleased = (e) => {
