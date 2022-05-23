@@ -56,9 +56,15 @@ const TestSketch: React.FC = (props) => {
   };
 
   const draw = (p5: p5Types) => {
+    let x = main.position.x + (main.direction.x * main.speed) / 60;
+    let y = main.position.y - (main.direction.y * main.speed) / 60;
+    x = Math.min(x, canvasSize);
+    x = Math.max(x, 0);
+    y = Math.min(y, canvasSize);
+    y = Math.max(y, 0);
     main.position = {
-      x: main.position.x + (main.direction.x * main.speed) / 60,
-      y: main.position.y - (main.direction.y * main.speed) / 60,
+      x,
+      y,
     }; // subtract in y direction bc up is "negative y"
 
     p5.background(0);
