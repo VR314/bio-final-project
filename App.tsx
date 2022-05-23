@@ -9,7 +9,7 @@ export default function App() {
   switch (pageID) {
     case 0:
       return (
-        <Wrapper title={'word'}>
+        <Wrapper title={'G1: Cell Growth'}>
           <Agario setPageID={setPageID} />
         </Wrapper>
       );
