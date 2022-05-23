@@ -69,12 +69,27 @@ const TestSketch: React.FC = (props) => {
     }
   };
 
-  const mousePressed = (e: MouseEvent) => {
-    console.log(e);
-    // props.setPageID(1);
+  const keyReleased = (e) => {
+    switch (e.key) {
+      case 'ArrowUp':
+        main.direction = { x: 0, y: 10 };
+        break;
+      case 'ArrowDown':
+        main.direction = { x: 0, y: -10 };
+        break;
+      case 'ArrowRight':
+        main.direction = { x: 10, y: 0 };
+        break;
+      case 'ArrowLeft':
+        main.direction = { x: -10, y: 0 };
+        break;
+      default:
+        console.log('extra key pressed');
+        break;
+    }
   };
 
-  return <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />;
+  return <Sketch setup={setup} draw={draw} keyReleased={keyReleased} />;
 };
 
 export default TestSketch;
