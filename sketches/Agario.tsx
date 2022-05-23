@@ -2,7 +2,12 @@ import React from 'react';
 import Sketch from 'react-p5';
 import p5Types from 'p5';
 
-const canvasSize = 400;
+// TOOD: add limited time
+// TODO: add sending score back to parent (through state update)
+// TODO: add randomly sized food
+// TODO: add enemies??
+
+const canvasSize = 300;
 
 interface Vector {
   x: number;
@@ -42,7 +47,7 @@ const TestSketch: React.FC = (props) => {
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     let cnv = p5.createCanvas(canvasSize, canvasSize).parent(canvasParentRef);
     main = new Blob(p5, { x: 50, y: 50 }, 30, true, '#228C22');
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < canvasSize / 50; i++) {
       smalls.push(
         new Blob(
           p5,
@@ -76,9 +81,12 @@ const TestSketch: React.FC = (props) => {
     };
 
     p5.stroke('#00');
-    p5.strokeWeight(4);
+    p5.strokeWeight(2);
     p5.fill(main.color);
     p5.ellipse(main.position.x, main.position.y, main.radius, main.radius);
+    /* let eaten = smalls.filter((small) => {
+      return small.active;
+    }); */
   };
 
   const keyReleased = (e) => {
